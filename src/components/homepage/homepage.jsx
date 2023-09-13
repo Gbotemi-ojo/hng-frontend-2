@@ -12,7 +12,7 @@ import instagram from '../../assets/instagram.svg';
 import twitter from '../../assets/twitter.svg';
 import youtube from '../../assets/youtube.svg';
 import './homepage.css'
-import { Link, NavLink } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 function Homepage() {
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([{}]);
@@ -89,8 +89,8 @@ function Homepage() {
                         <h1>Featured Movie</h1>
                     </div>
                     <div className='movie-collection-grid'>
-                        {movies.map((item) => {
-                            return <div className='movie-card' data-testid={["movie-card"]}>
+                        {movies.map((item,index) => {
+                            return <div className='movie-card' data-testid={["movie-card"]} key={index}>
                                 <img src={favouriteBtn} alt="fav button" className='favourite-btn' onClick={toggle_favouriteBtn} />
                                 <img src={IMG_PATH + item.poster_path} alt="" className='movie-card-image' data-testid={["movie-poster"]} />
                                 <div className='card-movie-date' data-testid={["movie-release-date"]}>{item.release_date}</div>
