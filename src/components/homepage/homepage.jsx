@@ -12,23 +12,32 @@ import instagram from '../../assets/instagram.svg';
 import twitter from '../../assets/twitter.svg';
 import youtube from '../../assets/youtube.svg';
 import './homepage.css'
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 function Homepage() {
     const [loading, setLoading] = useState(true);
     const [movies, setMovies] = useState([{}]);
-    const API_KEY = "7813ea178ab186b18f082b0f93d1169e"
+    const API_KEY = "7813ea178ab186b18f082b0f93d1169e";
     const IMG_PATH = "http://image.tmdb.org/t/p/w1280";
     // const endpoint = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7813ea178ab186b18f082b0f93d1169e&page=1";
     const BASE_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     const toggle_favouriteBtn = () => {
         alert('added to favorite');
     }
+    const convertDate = (date)=>{
+        const inputDate = new Date(date);
+        const utcMilliseconds = inputDate.getTime();
+        const utcDate = new Date(utcMilliseconds);
+        return utcDate.toISOString();
+    }
     const fetchMovie = async () => {
         try {
             const response = await axios.get(BASE_URL);
-            const movieData = response.data.results;
-            setMovies(movieData.slice(10, 60));
-            // dateConvertor()
+            const movieData = response.data.results
+            const newdata = movieData.map( (item)=>{
+                 item.release_date = convertDate(item.release_date)
+                 return item
+            })
+            setMovies(newdata.slice(10,60));
             setLoading(false);
         } catch (error) {
             console.error("Error fetching movie:", error);
@@ -38,16 +47,16 @@ function Homepage() {
         fetchMovie();
     }, []);
 
-    useEffect(() => {
-        console.log(movies)
-    }, [movies])
+    // useEffect(() => {
+    //     console.log(movies)
+    // }, [movies])
 
     if (loading) {
         return <div>loading</div>
     }
     return (
         <>
-            <main>
+            {<main>
                 <section className='top-half'>
                     <header>
                         <img src={logo} alt="logo" />
@@ -89,8 +98,8 @@ function Homepage() {
                         <h1>Featured Movie</h1>
                     </div>
                     <div className='movie-collection-grid'>
-                        {movies.map((item,index) => {
-                            return <div className='movie-card' data-testid={["movie-card"]} key={index}>
+                        {movies.map((item, index) => {
+                            return <div className='movie-card' data-testid="movie-card" key={index}>
                                 <img src={favouriteBtn} alt="fav button" className='favourite-btn' onClick={toggle_favouriteBtn} />
                                 <img src={IMG_PATH + item.poster_path} alt="" className='movie-card-image' data-testid={["movie-poster"]} />
                                 <div className='card-movie-date' data-testid={["movie-release-date"]}>{item.release_date}</div>
@@ -117,7 +126,7 @@ function Homepage() {
                         </div>
                     </footer>
                 </section>
-            </main>
+            </main> }
         </>
     )
 }
