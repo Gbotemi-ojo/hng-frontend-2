@@ -33,11 +33,11 @@ function Movie() {
             </div>
             <div className='movie-details-container'>
                 <div>
-                    <div data-testid={["movie-title"]}>{movieData.original_title}</div>
-                    <div data-testid={["movie-release-date"]}>{movieData.release_date}</div>
-                    <div><div data-testid={["movie-runtime"]}>{movieData.runtime}</div><span>minutes</span></div>
+                    <div data-testid="movie-title">{movieData.original_title}</div>
+                    <div data-testid="movie-release-date">{movieData.release_date}</div>
+                    <div><div data-testid="movie-runtime">{movieData.runtime}</div><span>minutes</span></div>
                 </div>
-                <div className='movie-overview' data-testid={["movie-overview"]}>{movieData.overview}</div>
+                <div className='movie-overview' data-testid="movie-overview">{movieData.overview}</div>
             </div>
         </section>
     )

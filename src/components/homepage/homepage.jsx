@@ -23,21 +23,11 @@ function Homepage() {
     const toggle_favouriteBtn = () => {
         alert('added to favorite');
     }
-    const convertDate = (date)=>{
-        const inputDate = new Date(date);
-        const utcMilliseconds = inputDate.getTime();
-        const utcDate = new Date(utcMilliseconds);
-        return utcDate.toISOString();
-    }
     const fetchMovie = async () => {
         try {
             const response = await axios.get(BASE_URL);
             const movieData = response.data.results
-            const newdata = movieData.map( (item)=>{
-                 item.release_date = convertDate(item.release_date)
-                 return item
-            })
-            setMovies(newdata.slice(10,60));
+            setMovies(movieData.slice(10,60));
             setLoading(false);
         } catch (error) {
             console.error("Error fetching movie:", error);
@@ -101,10 +91,10 @@ function Homepage() {
                         {movies.map((item, index) => {
                             return <div className='movie-card' data-testid="movie-card" key={index}>
                                 <img src={favouriteBtn} alt="fav button" className='favourite-btn' onClick={toggle_favouriteBtn} />
-                                <img src={IMG_PATH + item.poster_path} alt="" className='movie-card-image' data-testid={["movie-poster"]} />
-                                <div className='card-movie-date' data-testid={["movie-release-date"]}>{item.release_date}</div>
+                                <img src={IMG_PATH + item.poster_path} alt="" className='movie-card-image' data-testid="movie-poster" />
+                                <div className='card-movie-date' data-testid="movie-release-date">{item.release_date}</div>
                                 <Link to={`movie/${item.id}`}>
-                                    <div className='card-movie-name' data-testid={["movie-title"]}>{item.title}</div>
+                                    <div className='card-movie-name' data-testid="movie-title">{item.title}</div>
                                 </Link>
                             </div>
                         })}
