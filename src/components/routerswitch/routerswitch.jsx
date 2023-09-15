@@ -7,7 +7,7 @@ const RouteSwitch = () => {
         <BrowserRouter >
             <Routes>
                 <Route path="/" index element={<Homepage />} />
-                <Route path="/movie/:id" element={<Movie />} />
+                <Route path="/movies/:id" element={<Movie />} />
                 <Route element={<div>error here</div>} path="*" />
             </Routes>
         </BrowserRouter>
