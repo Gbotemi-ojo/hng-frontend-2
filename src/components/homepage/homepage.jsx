@@ -19,7 +19,7 @@ function Homepage() {
     const API_KEY = "7813ea178ab186b18f082b0f93d1169e";
     const IMG_PATH = "http://image.tmdb.org/t/p/w1280";
     // const endpoint = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7813ea178ab186b18f082b0f93d1169e&page=1";
-    const BASE_URL = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+    const BASE_URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
     const toggle_favouriteBtn = () => {
         alert('added to favorite');
     }
