@@ -93,7 +93,7 @@ function Homepage() {
                                 <img src={favouriteBtn} alt="fav button" className='favourite-btn' onClick={toggle_favouriteBtn} />
                                 <img src={IMG_PATH + item.poster_path} alt="" className='movie-card-image' data-testid="movie-poster" />
                                 <div className='card-movie-date' data-testid="movie-release-date">{item.release_date}</div>
-                                <Link to={`movie/${item.id}`}>
+                                <Link to={`movies/${item.id}`}>
                                     <div className='card-movie-name' data-testid="movie-title">{item.title}</div>
                                 </Link>
                             </div>
