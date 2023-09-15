@@ -11,6 +11,7 @@ import facebook from '../../assets/facebook.svg';
 import instagram from '../../assets/instagram.svg';
 import twitter from '../../assets/twitter.svg';
 import youtube from '../../assets/youtube.svg';
+import dayjs from 'dayjs';
 import './homepage.css'
 import { Link } from 'react-router-dom';
 function Homepage() {
@@ -26,8 +27,13 @@ function Homepage() {
     const fetchMovie = async () => {
         try {
             const response = await axios.get(BASE_URL);
-            const movieData = response.data.results
-            setMovies(movieData.slice(10,60));
+            const movieData = response.data.results;
+            console.log(movieData)
+            const modifiedData = movieData.map((item)=>{
+                item.release_date = dayjs(movieData.release_date).format("YYYY")
+                return item;
+            });
+            setMovies(modifiedData.slice(10,60));
             setLoading(false);
         } catch (error) {
             console.error("Error fetching movie:", error);

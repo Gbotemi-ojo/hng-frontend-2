@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
+import dayjs from 'dayjs';
 import './movie.css';
 function Movie() {
     const { id } = useParams();
@@ -13,10 +14,17 @@ function Movie() {
         const utcDate = new Date(utcMilliseconds);
         return utcDate.toISOString();
     }
+    const toHoursAndMinutes = (totalMinutes) => {
+        const hours = Math.floor(totalMinutes / 60);
+        const minutes = totalMinutes % 60;
+        return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
+    }; 
+
     const fetchData = async () => {
         const data = await fetch(endpoint);
         const json_data = await data.json();
-        json_data.release_date = convertDate(json_data.release_date)
+        json_data.release_date = dayjs(json_data.release_date).format("YYYY")
+        json_data.runtime = toHoursAndMinutes(json_data.runtime);
         setmovieData(json_data);
         setloading(false);
     }
