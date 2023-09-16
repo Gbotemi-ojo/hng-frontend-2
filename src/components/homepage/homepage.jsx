@@ -21,9 +21,6 @@ function Homepage() {
     const IMG_PATH = "http://image.tmdb.org/t/p/w1280";
     // const endpoint = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7813ea178ab186b18f082b0f93d1169e&page=1";
     const BASE_URL = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`;
-    const toggle_favouriteBtn = () => {
-        alert('added to favorite');
-    }
     const fetchMovie = async () => {
         try {
             const response = await axios.get(BASE_URL);
@@ -96,7 +93,6 @@ function Homepage() {
                     <div className='movie-collection-grid'>
                         {movies.map((item, index) => {
                             return <div className='movie-card' data-testid="movie-card" key={index}>
-                                <img src={favouriteBtn} alt="fav button" className='favourite-btn' onClick={toggle_favouriteBtn} />
                                 <img src={IMG_PATH + item.poster_path} alt="" className='movie-card-image' data-testid="movie-poster" />
                                 <div className='card-movie-date' data-testid="movie-release-date">{item.release_date}</div>
                                 <Link to={`movies/${item.id}`}>
